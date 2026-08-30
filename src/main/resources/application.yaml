@@ -15,3 +15,6 @@ spring:
 articles:
   client:
     base-url: https://jsonplaceholder.typicode.com
+  fetch:
+    initial-delay: 10s
+    delay: 5m
