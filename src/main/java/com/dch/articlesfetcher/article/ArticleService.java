@@ -20,11 +20,16 @@ public class ArticleService {
 
     private final PostClient postClient;
     private final ArticleRepository articleRepository;
+    private final ArticleMapper articleMapper;
     private final Clock clock;
 
-    public ArticleService(PostClient postClient, ArticleRepository articleRepository, Clock clock) {
+    public ArticleService(PostClient postClient,
+                          ArticleRepository articleRepository,
+                          ArticleMapper articleMapper,
+                          Clock clock) {
         this.postClient = postClient;
         this.articleRepository = articleRepository;
+        this.articleMapper = articleMapper;
         this.clock = clock;
     }
 
@@ -56,7 +61,7 @@ public class ArticleService {
         Instant fetchedAt = Instant.now(clock);
         return posts.stream()
                 .filter(post -> !existingIds.contains(post.id()))
-                .map(post -> new Article(post.id(), post.title(), post.body(), fetchedAt))
+                .map(post -> articleMapper.toArticle(post, fetchedAt))
                 .toList();
     }
 }
