@@ -2,8 +2,10 @@ package com.dch.articlesfetcher.article;
 
 import com.dch.articlesfetcher.client.PostClient;
 import com.dch.articlesfetcher.client.PostResponse;
+import com.dch.articlesfetcher.config.UnreadArticlesProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Limit;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,15 +24,17 @@ public class ArticleService {
     private final ArticleRepository articleRepository;
     private final ArticleMapper articleMapper;
     private final Clock clock;
+    private final UnreadArticlesProperties unreadProperties;
 
     public ArticleService(PostClient postClient,
                           ArticleRepository articleRepository,
                           ArticleMapper articleMapper,
-                          Clock clock) {
+                          Clock clock, UnreadArticlesProperties unreadProperties) {
         this.postClient = postClient;
         this.articleRepository = articleRepository;
         this.articleMapper = articleMapper;
         this.clock = clock;
+        this.unreadProperties = unreadProperties;
     }
 
     @Transactional
@@ -49,6 +53,12 @@ public class ArticleService {
         log.info("Saved {} new articles ({} fetched, {} already existed)",
                 newArticles.size(), posts.size(), existingIds.size());
         return newArticles.size();
+    }
+
+    @Transactional(readOnly = true)
+    public List<Article> getUnreadArticles(){
+        return articleRepository.findByReadAtIsNullOrderByExternalIdAsc(
+                Limit.of(unreadProperties.limit()));
     }
 
     private Set<Long> extractExternalIds(List<PostResponse> posts) {

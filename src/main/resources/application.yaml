@@ -18,3 +18,5 @@ articles:
   fetch:
     initial-delay: 10s
     delay: 5m
+  unread:
+    limit: 5
