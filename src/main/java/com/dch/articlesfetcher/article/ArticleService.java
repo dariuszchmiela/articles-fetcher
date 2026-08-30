@@ -61,6 +61,13 @@ public class ArticleService {
                 Limit.of(unreadProperties.limit()));
     }
 
+    @Transactional
+    public void markAsRead(Long articleId){
+        Article article = articleRepository.findById(articleId)
+                .orElseThrow(() -> new ArticleNotFoundException(articleId));
+        article.markAsRead(Instant.now(clock));
+    }
+
     private Set<Long> extractExternalIds(List<PostResponse> posts) {
         return posts.stream()
                 .map(PostResponse::id)
