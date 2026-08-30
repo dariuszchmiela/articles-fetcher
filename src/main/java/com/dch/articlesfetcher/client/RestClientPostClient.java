@@ -3,10 +3,12 @@ package com.dch.articlesfetcher.client;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 
 import java.util.List;
 
+@Component
 public class RestClientPostClient implements PostClient{
     private static final Logger log = LoggerFactory.getLogger(RestClientPostClient.class);
     private static final String POST_PATH = "/posts";
