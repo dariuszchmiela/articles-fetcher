@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:18
+    container_name: articles-postgres
+    environment:
+      POSTGRES_DB: articles
+      POSTGRES_USER: articles
+      POSTGRES_PASSWORD: articles
+    ports:
+      - "5433:5432"
+    volumes:
+      - articles-pgdata:/var/lib/postgresql
+
+volumes:
+  articles-pgdata:
+
