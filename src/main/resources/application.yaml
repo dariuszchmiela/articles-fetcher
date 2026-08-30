@@ -1,4 +1,8 @@
 spring:
+  http:
+    clients:
+      connect-timeout: 3s
+      read-timeout: 5s
   datasource:
     url: jdbc:postgresql://localhost:5433/articles
     username: articles
@@ -11,5 +15,3 @@ spring:
 articles:
   client:
     base-url: https://jsonplaceholder.typicode.com
-    connection-time-out: 3s
-    read-time-out: 5s

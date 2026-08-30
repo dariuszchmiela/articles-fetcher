@@ -6,8 +6,6 @@ import java.time.Duration;
 
 @ConfigurationProperties(prefix = "articles.client")
 public record PostClientProperties(
-        String baseUrl,
-        Duration connectionTimeOut,
-        Duration readTimeOut
+        String baseUrl
 ) {
 }
