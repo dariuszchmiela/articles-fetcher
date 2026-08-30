@@ -7,3 +7,9 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+
+articles:
+  client:
+    base-url: https://jsonplaceholder.typicode.com
+    connection-time-out: 3s
+    read-time-out: 5s
