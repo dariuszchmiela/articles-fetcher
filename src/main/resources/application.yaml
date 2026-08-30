@@ -1,3 +1,9 @@
 spring:
-  application:
-    name: articles-fetcher
+  datasource:
+    url: jdbc:postgresql://localhost:5433/articles
+    username: articles
+    password: articles
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
